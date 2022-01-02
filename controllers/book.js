@@ -92,6 +92,11 @@ export const bookAddPage = async (req, res) => {
       }
     );
 
+    if (!book)
+      return res.status(400).json({
+        error: 'Kitap Bulunamadı !!!'
+      });
+
     return res.status(200).json({
       message: 'Sayfa Başarıyla Eklendi !!!',
       book
@@ -105,11 +110,15 @@ export const bookAddPage = async (req, res) => {
 };
 
 export const bookAddPageToUser = async (req, res, next) => {
-  const { pageNumber, date } = req.body;
+  const { pageNumber, date, _id } = req.body;
 
   let data = {};
 
   try {
+    const book = await Book.findById({ _id: _id });
+
+    if (!book) return res.status(400).json({ error: 'Kitap Bulunamadı !!!' });
+
     const user = await User.findByIdAndUpdate(
       req.user._id,
       {
