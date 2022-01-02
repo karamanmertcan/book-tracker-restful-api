@@ -6,6 +6,7 @@ import { hashPassword, comparePassword } from '../helpers/auth';
 //@Route PUBLIC POST /api/login
 export const login = async (req, res) => {
   const { email, password } = req.body;
+  console.log(password);
 
   try {
     const user = await User.findOne({ email });
@@ -92,5 +93,44 @@ export const userUpdate = async (req, res) => {
     return res.status(200).json({ user, ok: true });
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const getCurrentUser = async (req, res) => {
+  try {
+    const user = await User.find({ _id: req.user._id });
+    if (!user) return res.status(404).json({ error: 'Kullanici Bulunamadi' });
+
+    return res.status(200).json({ user, ok: true });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({ error: 'Kullanici Bulunamadi' });
+  }
+};
+
+export const rankLeaderboard = async (req, res) => {
+  try {
+    const user = await User.find().sort({ totalPage: -1 }).select('name email totalPage').limit(10);
+
+    if (!user) return res.status(404).json({ error: 'Kullanici Bulunamadi' });
+
+    // console.log(user.totalPage);
+
+    // const next_player = await User.find({
+    //   _id: { $ne: user._id },
+    //   totalPage: { $gte: user.totalPage }
+    // }).sort({ totalPage: 1, email: 1 });
+
+    // const previous_player = await User.find({
+    //   _id: { $ne: user._id },
+    //   totalPage: { $lte: user.totalPage }
+    // }).sort({ totalPage: -1, email: -1 });
+
+    // console.log('previous players', previous_player);
+
+    return res.status(200).json({ user, ok: true });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({ error: 'Kullanici Bulunamadi' });
   }
 };
