@@ -74,7 +74,7 @@ export const bookAdd = async (req, res) => {
 };
 
 export const bookAddPage = async (req, res) => {
-  const { pageNumber, date } = req.body;
+  const { pageNumber } = req.body;
   try {
     const book = await Book.findByIdAndUpdate(
       req.body._id,
@@ -82,7 +82,6 @@ export const bookAddPage = async (req, res) => {
         $push: {
           readPages: {
             pageNumber: pageNumber,
-            date: date,
             createdBy: req.user._id
           }
         }
@@ -99,6 +98,7 @@ export const bookAddPage = async (req, res) => {
 
     return res.status(200).json({
       message: 'Sayfa Başarıyla Eklendi !!!',
+      ok: true,
       book
     });
   } catch (error) {
