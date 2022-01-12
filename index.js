@@ -30,12 +30,6 @@ app.use(
 
 app.use(express.urlencoded({ extended: true }));
 
-// Rate limiting
-const limiter = rateLimit({
-  windowMs: 10 * 60 * 1000, //10mins
-  max: 100
-});
-
 //Sanitize data
 app.use(mongoSanitize());
 
@@ -44,8 +38,6 @@ app.use(helmet());
 
 //Prevent XSS attacks
 app.use(xss());
-
-app.use(limiter);
 
 //Prevent http param pollution
 app.use(hpp());
