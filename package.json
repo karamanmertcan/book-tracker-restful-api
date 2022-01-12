@@ -19,10 +19,16 @@
     "express-formidable": "^1.2.0",
     "express-joi-validation": "^5.0.1",
     "express-jwt": "^6.1.0",
+    "express-rate-limit": "^6.1.0",
+    "helmet": "^5.0.1",
+    "hpp": "^0.2.3",
     "joi": "^17.5.0",
     "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.1",
     "mongoose": "^6.0.11",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.13"
+    "nodemon": "^2.0.13",
+    "xss-clean": "^0.1.1",
+    "express-mongo-sanitize": "^2.1.0"
   }
 }

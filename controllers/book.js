@@ -82,6 +82,7 @@ export const bookAddPage = async (req, res) => {
         $push: {
           readPages: {
             pageNumber: pageNumber,
+
             createdBy: req.user._id
           }
         }
@@ -143,8 +144,6 @@ export const bookAddPageToUser = async (req, res, next) => {
     const userTotal = await User.findByIdAndUpdate(req.user._id, data, {
       new: true
     });
-
-    console.log(userTotal);
 
     next();
   } catch (error) {

@@ -25,7 +25,7 @@ const bookSchema = new Schema(
         },
         date: {
           type: Date,
-          default: Date.now
+          default: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7)
         },
         createdBy: {
           type: ObjectId,

@@ -33,6 +33,10 @@ const userSchema = new Schema(
       type: Number,
       default: 0
     },
+    lastWeekPage: {
+      type: Number,
+      default: 0
+    },
     readPages: [
       {
         pageNumber: {
